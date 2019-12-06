@@ -64,6 +64,12 @@ public func 💩(_ message: @autoclosure () -> Logger.Message = #function, _ fil
   logger.error(message(), file: file, function: function, line: line)
 }
 
+/** critical logging
+ - Parameter message: The message you want to log
+ 
+ ！("my message")
+ > ‼️‼️[CRITICAL] [MyClass:lineNumber] my message
+ */
 public func ！(_ message: @autoclosure () -> Logger.Message = #function, _ file: String = #file, _ line: UInt = #line, _ function: String = #function) {
   logger.critical(message(), file: file, function: function, line: line)
 }
