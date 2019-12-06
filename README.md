@@ -8,7 +8,7 @@ A custom LogHandler that uses emojis to represent log levels. It is meant to be 
 
 add this to your `dependencies` list
 ```swift
-.package(url: "https://github.com/SwiftMN/EmojiLogHandler.git", from: "1.0.0")
+.package(url: "https://github.com/SwiftMN/EmojiLogHandler.git", from: "1.1.0")
 ```
 
 and of course add `"EmojiLogHandler"` to your list target dependencies
