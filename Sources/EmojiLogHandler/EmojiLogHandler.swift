@@ -1,23 +1,23 @@
 import Logging
 
-struct EmojiLogHandler: LogHandler {
+public struct EmojiLogHandler: LogHandler {
   
   let label: String
   
-  init(_ label: String) {
+  public init(_ label: String) {
     self.label = label
   }
   
-  var metadata = Logger.Metadata()
-  var logLevel: Logger.Level = .trace
+  public var metadata = Logger.Metadata()
+  public var logLevel: Logger.Level = .trace
   
-  static let prefixKey = "prefixKey"
+  public static let prefixKey = "prefixKey"
   
-  static func customPrefix(_ prefixString: String) -> Logger.Metadata {
+  public static func customPrefix(_ prefixString: String) -> Logger.Metadata {
     return [EmojiLogHandler.prefixKey: .string(prefixString)]
   }
   
-  static func prefix(for level: Logger.Level) -> String {
+  public static func prefix(for level: Logger.Level) -> String {
     switch level {
     case .trace:    return "📋  [TRACE]"
     case .debug:    return "🐛  [DEBUG]"
@@ -30,26 +30,26 @@ struct EmojiLogHandler: LogHandler {
   }
   
   /// converts  /some/dir/FileName.swift to FileName
-  static func simplifiedFileName(_ file: String) -> String {
+  public static func simplifiedFileName(_ file: String) -> String {
     guard let fileName = file.split(separator: "/").last else { return file }
     guard let withoutExtenstion = "\(fileName)".split(separator: ".").first else { return "\(fileName)" }
     return "\(withoutExtenstion)"
   }
   
   
-  static func format(_ level: Logger.Level, _ message: Logger.Message, _ metadata: Logger.Metadata?, _ file: String, _ line: UInt) -> String {
+  public static func format(_ level: Logger.Level, _ message: Logger.Message, _ metadata: Logger.Metadata?, _ file: String, _ line: UInt) -> String {
     if let prefix = metadata?[EmojiLogHandler.prefixKey] {
       return "\(prefix) [\(EmojiLogHandler.simplifiedFileName(file)):\(line)] \(message)"
     }
     return "\(EmojiLogHandler.prefix(for: level)) [\(EmojiLogHandler.simplifiedFileName(file)):\(line)] \(message)"
   }
   
-  func log(level: Logger.Level, message: Logger.Message, metadata: Logger.Metadata?, file: String, function: String, line: UInt) {
+  public func log(level: Logger.Level, message: Logger.Message, metadata: Logger.Metadata?, file: String, function: String, line: UInt) {
     // consider updating this to use a TextOutputStream
     print(EmojiLogHandler.format(level, message, metadata, file, line))
   }
   
-  subscript(metadataKey key: String) -> Logger.Metadata.Value? {
+  public subscript(metadataKey key: String) -> Logger.Metadata.Value? {
     get {
       return metadata[key]
     }
