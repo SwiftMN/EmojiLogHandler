@@ -16,6 +16,32 @@ and of course add `"EmojiLogHandler"` to your list target dependencies
 .target(name: "SweetProjectName", dependencies: ["EmojiLogHandler"]),
 ```
 
+### Using Xcode
+
+File > Swift Packages > Add Package Dependency...
+
+Paste the url for this project when prompted
+```
+https://github.com/SwiftMN/EmojiLogHandler
+```
+
+## Setup
+
+In your AppDelegate or SceneDelegate, bootstrap an instance of `EmojiLogHandler`.
+
+```swift
+LoggingSystem.bootstrap { label in
+  EmojiLogHandler(label)
+}
+// make sure you bootstrap all handlers before setting logLevel
+// logger.logLevel just forwards to the handlers that have been bootstrapped
+logger.logLevel = .debug
+```
+
+Make sure you import the package, too
+```swift
+import EmojiLogHandler
+```
 
 ## Usage
 
@@ -38,9 +64,20 @@ and of course add `"EmojiLogHandler"` to your list target dependencies
 💩💩[ERROR] [FileName:50] This is an error level message  
 ‼️‼️[CRITICAL] [FileName:51] This is a critical level message  
 
+### Finding the right emojis
+
+1. clone this repo or just download the code snippets in [etc/CodeSnippets](etc/CodeSnippets)  
+1. run 
+    ```
+    cp etc/codeSnippets/* ~/Library/Developer/Xcode/UserData/CodeSnippets/
+    ```
+1. reopen Xcode and use the handy autocomplete code snippets. They match the log levels so just start typing `debug` and it will autofill for you. Super nice.
+
+### Finding them the hard way
+
 You can easily find these emojis by hitting `ctrl+cmd+space`. Once you use these they will be at the top of your list automatically. To find them the first time, hit `ctrl+cmd+space` and type "clipboard" to find 📋, "bug" to find "🐛", type "speak" to find "🗣", type "crash" to find "💥", and type "poop" to find "💩". I know what you're thinking... Why use the "crash" emoji for warn? Because the poop emoji is funnier. As in "Ahh shit! an error!"
 
-### Customization
+## Customization
 
 You can easily make custom logging functions which makes your logging more expressive and allows you to easily filter your logs for your own debugging purposes.
 
